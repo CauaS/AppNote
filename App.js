@@ -1,6 +1,12 @@
 import React from 'react';
 import Index from './src/index';
 
+import Provider from './src/context/Provider';
+
 export default function App() {
-    return <Index />
+    return (
+        <Provider>
+            <Index />
+        </Provider>
+    );
 }

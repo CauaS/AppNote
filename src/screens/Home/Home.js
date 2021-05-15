@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useContext } from 'react';
+import Context from '../../context/Context';
 
 import { View, Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import styles from '../../styles/styles';
-
 
 import { Feather, AntDesign } from '@expo/vector-icons';
 
@@ -22,12 +22,12 @@ export default function Home(props) {
     }
 
     const decks = [
-        { id: 0, deckName: "Beddle the bard", totalNumber: 50, color: 'F96A4B', isLiked: true },
-        { id: 1, deckName: "Beddle the bard", totalNumber: 50, color: '57BBDB', isLiked: false },
-        { id: 2, deckName: "Beddle the bard", totalNumber: 50, color: 'FE9A37', isLiked: false },
-        { id: 3, deckName: "Beddle the bard", totalNumber: 50, color: 'F96A4B', isLiked: false },
-        { id: 4, deckName: "Beddle the bard", totalNumber: 50, color: 'DEA44D', isLiked: false },
-        { id: 5, deckName: "Beddle the bard", totalNumber: 60, color: '57BBDB', isLiked: false }
+        { id: 0, deckName: "Beddle the bard", totalCardItems: 3, color: 'F96A4B', isLiked: true },
+        { id: 1, deckName: "Beddle the bard", totalCardItems: 3, color: '57BBDB', isLiked: false },
+        { id: 2, deckName: "Beddle the bard", totalCardItems: 3, color: 'FE9A37', isLiked: false },
+        { id: 3, deckName: "Beddle the bard", totalCardItems: 3, color: 'F96A4B', isLiked: false },
+        { id: 4, deckName: "Beddle the bard", totalCardItems: 3, color: 'DEA44D', isLiked: false },
+        { id: 5, deckName: "Beddle the bard", totalCardItems: 60, color: '57BBDB', isLiked: false }
     ];
 
     return (
@@ -58,7 +58,7 @@ export default function Home(props) {
             <ScrollView>
             {
                  decks.map(deck => (
-                    <Deck key={deck.id} {...deck} {...props} length={decks.length}/>
+                    <Deck key={deck.id} {...deck} {...props}/>
                 ))
             }
             </ScrollView>

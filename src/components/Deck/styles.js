@@ -25,6 +25,7 @@ export const DeckBottom = styled.View`
 export const DeckBottomTotalCards = styled.View`
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 `;
 
 export const DeckLike = styled.TouchableOpacity``;

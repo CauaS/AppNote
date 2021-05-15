@@ -13,7 +13,7 @@ import {
 import styles from '../../styles/styles';
 import { DeckContainer, DeckHeader, DeckPlusIcon, DeckBottom, DeckBottomTotalCards, DeckLike } from './styles';
 
-function Deck({ deckName, totalNumber, color, isLiked, navigation, length }){
+function Deck({ deckName, totalCardItems, color, isLiked, navigation }){
     let [fonts] = useFonts({ RobotoMono_500Medium });
 
     if (!fonts) {
@@ -27,7 +27,7 @@ function Deck({ deckName, totalNumber, color, isLiked, navigation, length }){
             style={{ backgroundColor: `#${color}`}}
             //bgColor={color}
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('Question',  { title: deckName, color: color, length: length })}
+            onPress={() => navigation.navigate('Question',  { title: deckName, color: color, totalItems: totalCardItems })}
         >
             <DeckHeader>
                 <Text style={{ fontFamily: 'RobotoMono_500Medium', fontSize: 23 }}>
@@ -45,7 +45,7 @@ function Deck({ deckName, totalNumber, color, isLiked, navigation, length }){
                         numberOfLines={1} 
                         style={{ ...styles.deckText, fontFamily: 'RobotoMono_500Medium'}}
                     >
-                        {totalNumber}
+                        {totalCardItems}
                     </Text>
                 </DeckBottomTotalCards>
                 <DeckLike 

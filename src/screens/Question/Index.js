@@ -1,34 +1,29 @@
-import React, { useRef, useState } from 'react';
-import { Text, TouchableOpacity, View, Animated, Easing } from 'react-native';
+import React, { useRef, useState, useContext } from 'react';
+import { Animated, Easing } from 'react-native';
+import Context from '../../context/Context';
 
-import { QuestionContainer } from './styles';
+import { QuestionContainer, Middle, Word, ActionButton } from './styles';
 
 import { SimpleLineIcons } from '@expo/vector-icons';
 
-import {
-    useFonts,
-    RobotoMono_500Medium,
-} from '@expo-google-fonts/roboto-mono';
+import { RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 
 function Question({ route, navigation }){
     const TextTranslate = useRef(new Animated.Value(0)).current;
-    const [index, setIndex] = useState(0);
+    const { cardIndex, setCardIndex } = useContext(Context);
     const [showed, setShowed] = useState(false);
 
     const deckCards = {
         id: 0,
         deckName: 'Beddle the bard',
         cards: [
-            { id: 0, front: 'Something', back: 'Alguma coisa' },
-            { id: 1, front: 'Something 1', back: 'Alguma coisa  1' },
-            { id: 2, front: 'Something 2', back: 'Alguma coisa 2' },
+            { id: 0, front: 'Hello', back: 'Olá' },
+            { id: 1, front: 'Good', back: 'Bom' },
+            { id: 2, front: 'Tomorrow', back: 'Amanhã' }
         ]
-    }
+    };
 
-    const { color } = route.params;
-    // useEffect(()=> {
-    //     navigation.setOptions({ title: title });
-    // }, []);
+    const { color, totalItems } = route.params;
 
     function showAnswer(){
         Animated.timing(TextTranslate, {
@@ -39,9 +34,16 @@ function Question({ route, navigation }){
         }).start( () => setShowed(true));
     }
     function goNextCard(){
+        if(totalItems >= cardIndex+1) {
+            setCardIndex(index => index + 1)
+        }
         setShowed(false);
-        setIndex(index => index + 1)
         TextTranslate.setValue(0);
+    }
+
+    function goBackHome(){
+        navigation.goBack();
+        setCardIndex(0);
     }
 
     const answerInterplate = TextTranslate.interpolate({ 
@@ -59,44 +61,42 @@ function Question({ route, navigation }){
     return (
         <QuestionContainer>
             {
-                deckCards.cards[index] 
+                deckCards.cards[cardIndex] 
                 ? 
-                    <View style={{width: '100%', height: '50%', justifyContent: 'center', alignItems: 'center'}}>
-                        <Animated.Text style={{color: '#fff', fontSize: 24, fontFamily: 'RobotoMono_500Medium', transform:[{ translateY: TextTranslate }]  }}>
-                            {deckCards.cards[index]?.front}
-                        </Animated.Text>
+                    <Middle>
+                        <Word style={{ transform:[{ translateY: TextTranslate }]  }}>
+                            {deckCards.cards[cardIndex]?.front}
+                        </Word>
                         <Animated.View style={{ opacity: answerInterplate }}> 
                             <SimpleLineIcons name="arrow-down" size={24} color={`#${color}`} /> 
                         </Animated.View>
-                        <Animated.Text style={{color: '#fff', fontSize: 24, fontFamily: 'RobotoMono_500Medium', opacity: answerInterplate, transform:[{ translateY: answerInterplateTranslate }] }}>
-                            {deckCards.cards[index]?.back}
-                        </Animated.Text>
-                    </View>
+                        <Word style={{ opacity: answerInterplate, transform:[{ translateY: answerInterplateTranslate }] }}>
+                            {deckCards.cards[cardIndex]?.back}
+                        </Word>
+                    </Middle>
                 :
-                <View style={{width: '100%', height: '50%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#fff', fontSize: 24, fontFamily: 'RobotoMono_500Medium' }}>
-                        Acabou!
-                    </Text>
-                </View>
+                    <Middle>
+                        <Word>
+                            Acabou!
+                        </Word>
+                    </Middle>
             }
             {
-              deckCards.cards[index] 
+              deckCards.cards[cardIndex] 
                 ?  
-                    <TouchableOpacity 
-                        activeOpacity={0.7}  
-                        style={{ backgroundColor: `#${color}`, padding: 15, borderRadius: 5, marginTop: 50 }}
+                    <ActionButton 
+                        style={{ backgroundColor: `#${color}` }}
                         onPress={() => showed ? goNextCard() : showAnswer()}
                     >
-                        <Text style={{color: '#fff', fontSize: 24, fontFamily: 'RobotoMono_500Medium' }}>{ showed ? 'Próximo' : 'Ver'}</Text>
-                    </TouchableOpacity>
+                        <Word> { showed ? 'Próximo' : 'Ver'} </Word>
+                    </ActionButton>
                 :
-                    <TouchableOpacity 
-                        activeOpacity={0.7}  
-                        style={{ backgroundColor: `#${color}`, padding: 15, borderRadius: 5, marginTop: 50 }}
-                        onPress={() => navigation.goBack()}
+                    <ActionButton 
+                        style={{ backgroundColor: `#${color}` }}
+                        onPress={() => goBackHome()}
                     >
-                        <Text style={{color: '#fff', fontSize: 24, fontFamily: 'RobotoMono_500Medium' }}> Voltar </Text>
-                    </TouchableOpacity>
+                        <Word> Voltar </Word>
+                    </ActionButton>
             }
             
         </QuestionContainer>

@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
+
+import Context from '../../context/Context';
 
 import { DeckHeaderContainer, DeckHeaderLength, DeckHeaderIcon } from './styles';
 
 function DeckHeaderLeft({ navigation, route}){
+    const { cardIndex } = useContext(Context);
+    const { color, totalItems } = route.params;
 
-    const { color, length } = route.params;
     return(
         <DeckHeaderContainer>
             <DeckHeaderLength>
                 <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold' }}>
-                    1 -
+                    {cardIndex} 
                     <Text style={{ color: `#${color}`}}>
-                        - {length}
+                        - {totalItems}
                     </Text>
                 </Text> 
             </DeckHeaderLength>
