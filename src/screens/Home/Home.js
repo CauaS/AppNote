@@ -1,18 +1,14 @@
-import React, {useEffect, useContext } from 'react';
-import Context from '../../context/Context';
+import React from 'react';
 
 import { View, Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
-import styles from '../../styles/styles';
+import { HomeContainer, HomeHeader, HomeHeaderContent, HomeHeaderTitle, HomeHeaderIconArea, HomeHeaderIconPlus, HomeHeaderIconSearch } from './styles';
 
 import { Feather, AntDesign } from '@expo/vector-icons';
 
 import Deck from '../../components/Deck';
 
 import AppLoading from 'expo-app-loading';
-import {
-    useFonts,
-    RobotoMono_500Medium,
-} from '@expo-google-fonts/roboto-mono';
+import { useFonts, RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 
 export default function Home(props) {
     let [fonts] = useFonts({ RobotoMono_500Medium });
@@ -31,30 +27,30 @@ export default function Home(props) {
     ];
 
     return (
-        <View style={styles.HomeBg}>
-            <View style={{ marginBottom: 25 }}>
+        <HomeContainer>
+            <HomeHeader>
                 <StatusBar backgroundColor="black" barStyle="light-content" />
-                <View style={ styles.HeaderHome }>
-                    <View>
+                <HomeHeaderContent>
+                    <HomeHeaderTitle>
                         <Text style={{ fontFamily: 'RobotoMono_500Medium', color: "#fff", fontSize: 25 }}>Decks</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row'}}>
+                    </HomeHeaderTitle>
+                    <HomeHeaderIconArea>
                         <TouchableOpacity activeOpacity={0.8}>
-                            <View style={styles.iconHomeSearch}>
+                            <HomeHeaderIconSearch>
                                 <Feather name="search" size={22} color="#fff" />
-                            </View>
+                            </HomeHeaderIconSearch>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             activeOpacity={0.8}
                             hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
                         >
-                            <View style={styles.iconHomePlus}>
+                            <HomeHeaderIconPlus>
                                 <AntDesign name="plus" size={22} color="#fff" />
-                            </View>
+                            </HomeHeaderIconPlus>
                         </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
+                    </HomeHeaderIconArea>
+                </HomeHeaderContent>
+            </HomeHeader>
             <ScrollView>
             {
                  decks.map(deck => (
@@ -63,6 +59,6 @@ export default function Home(props) {
             }
             </ScrollView>
             
-        </View>    
+        </HomeContainer>    
     );
 }

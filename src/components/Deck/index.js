@@ -10,7 +10,6 @@ import {
     RobotoMono_500Medium,
 } from '@expo-google-fonts/roboto-mono';
 
-import styles from '../../styles/styles';
 import { DeckContainer, DeckHeader, DeckPlusIcon, DeckBottom, DeckBottomTotalCards, DeckLike } from './styles';
 
 function Deck({ deckName, totalCardItems, color, isLiked, navigation }){
@@ -43,7 +42,7 @@ function Deck({ deckName, totalCardItems, color, isLiked, navigation }){
                     <MaterialCommunityIcons name="cards" size={20} color="#fff" style={{ marginRight: 3 }} />
                     <Text 
                         numberOfLines={1} 
-                        style={{ ...styles.deckText, fontFamily: 'RobotoMono_500Medium'}}
+                        style={{ color: '#fff', fontSize: 23, fontFamily: 'RobotoMono_500Medium'}}
                     >
                         {totalCardItems}
                     </Text>
