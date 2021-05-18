@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screens/Home/Home';
+import AddDeck from '../screens/AddDeck';
 import Question from '../screens/Question/Index';
 import DeckHeaderLeft from '../components/HeaderLeft/index';
 
@@ -24,6 +25,20 @@ export default function Routes() {
                     }}
                 >
                     {props => <Home {...props} />}
+                </Stack.Screen>
+                <Stack.Screen
+                    name="AddDeck"
+                    options={{
+                        mode: 'modal',
+                        headerMode: 'none',
+                        cardStyle:{
+                          backgroundColor:"black",
+                          opacity: 0.8
+                      },
+                      headerShown: false
+                    }}
+                >
+                    {props => <AddDeck {...props} />}
                 </Stack.Screen>
                 <Stack.Screen
                     name="Question"

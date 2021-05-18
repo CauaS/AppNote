@@ -21,7 +21,7 @@ export const HomeHeaderIconArea = styled.View`
     flex-direction: row;
 `;
 
-export const HomeHeaderIconSearch = styled.View`
+export const HomeHeaderIconSearch = styled.TouchableOpacity`
     background-color: 'rgba(46, 49, 49, 0.8)';
     padding: 7px;
     border-radius: 6px;
@@ -29,7 +29,7 @@ export const HomeHeaderIconSearch = styled.View`
     align-items: center;
 `;
 
-export const HomeHeaderIconPlus = styled.View`
+export const HomeHeaderIconPlus = styled.TouchableOpacity`
     padding: 7px;
     border-radius: 6px;
     justify-content: center;

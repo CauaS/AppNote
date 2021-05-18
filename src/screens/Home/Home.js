@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import { HomeContainer, HomeHeader, HomeHeaderContent, HomeHeaderTitle, HomeHeaderIconArea, HomeHeaderIconPlus, HomeHeaderIconSearch } from './styles';
 
 import { Feather, AntDesign } from '@expo/vector-icons';
@@ -44,7 +44,7 @@ export default function Home(props) {
                             activeOpacity={0.8}
                             hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
                         >
-                            <HomeHeaderIconPlus>
+                            <HomeHeaderIconPlus onPress={() => props.navigation.navigate('AddDeck')}>
                                 <AntDesign name="plus" size={22} color="#fff" />
                             </HomeHeaderIconPlus>
                         </TouchableOpacity>
