@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import Context from '../../context/Context';
 
 import { Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import { HomeContainer, HomeHeader, HomeHeaderContent, HomeHeaderTitle, HomeHeaderIconArea, HomeHeaderIconPlus, HomeHeaderIconSearch } from './styles';
@@ -11,21 +12,14 @@ import AppLoading from 'expo-app-loading';
 import { useFonts, RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 
 export default function Home(props) {
+    
+    const { decks } = useContext(Context);
     let [fonts] = useFonts({ RobotoMono_500Medium });
 
     if (!fonts) {
         return <AppLoading />;
     }
-
-    const decks = [
-        { id: 0, deckName: "Beddle the bard", totalCardItems: 3, color: 'F96A4B', isLiked: true },
-        { id: 1, deckName: "Beddle the bard", totalCardItems: 3, color: '57BBDB', isLiked: false },
-        { id: 2, deckName: "Beddle the bard", totalCardItems: 3, color: 'FE9A37', isLiked: false },
-        { id: 3, deckName: "Beddle the bard", totalCardItems: 3, color: 'F96A4B', isLiked: false },
-        { id: 4, deckName: "Beddle the bard", totalCardItems: 3, color: 'DEA44D', isLiked: false },
-        { id: 5, deckName: "Beddle the bard", totalCardItems: 60, color: '57BBDB', isLiked: false }
-    ];
-
+    
     return (
         <HomeContainer>
             <HomeHeader>

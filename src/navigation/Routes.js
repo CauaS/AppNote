@@ -6,8 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screens/Home/Home';
 import AddDeck from '../screens/AddDeck';
-import Question from '../screens/Question/Index';
-import DeckHeaderLeft from '../components/HeaderLeft/index';
+import Question from '../screens/Question';
+import DeckHeaderLeft from '../components/HeaderLeft';
+import AddDeckCard from '../screens/AddDeckCard'
 
 export default function Routes() {
     const Stack = createStackNavigator(); 
@@ -56,6 +57,18 @@ export default function Routes() {
                     })}
                 >
                     {props => <Question {...props} />}
+                </Stack.Screen>
+                <Stack.Screen
+                    name="AddDeckCard"
+                    options={({ route, navigation }) => ({
+                        title: route.params.title,
+                        headerStyle: {
+                            backgroundColor: 'black',
+                        },
+                        headerTintColor: '#fff',
+                    })}
+                >
+                    {props => <AddDeckCard {...props} />}
                 </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>

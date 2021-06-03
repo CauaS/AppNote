@@ -9,22 +9,12 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 
 function Question({ route, navigation }){
+   
     const TextTranslate = useRef(new Animated.Value(0)).current;
-    const { cardIndex, setCardIndex } = useContext(Context);
+    const { cardIndex, setCardIndex, deckCards } = useContext(Context);
     const [showed, setShowed] = useState(false);
-
-    const deckCards = {
-        id: 0,
-        deckName: 'Beddle the bard',
-        cards: [
-            { id: 0, front: 'Hello', back: 'Olá' },
-            { id: 1, front: 'Good', back: 'Bom' },
-            { id: 2, front: 'Tomorrow', back: 'Amanhã' }
-        ]
-    };
-
-    const { color, totalItems } = route.params;
-
+    const { deckId , color, totalItems } = route.params;
+    
     function showAnswer(){
         Animated.timing(TextTranslate, {
             toValue: -100,
@@ -61,17 +51,17 @@ function Question({ route, navigation }){
     return (
         <QuestionContainer>
             {
-                deckCards.cards[cardIndex] 
+                deckCards[deckId].cards[cardIndex] 
                 ? 
                     <Middle>
                         <Word style={{ transform:[{ translateY: TextTranslate }]  }}>
-                            {deckCards.cards[cardIndex]?.front}
+                            {deckCards[deckId].cards[cardIndex]?.front}
                         </Word>
                         <Animated.View style={{ opacity: answerInterplate }}> 
                             <SimpleLineIcons name="arrow-down" size={24} color={`#${color}`} /> 
                         </Animated.View>
                         <Word style={{ opacity: answerInterplate, transform:[{ translateY: answerInterplateTranslate }] }}>
-                            {deckCards.cards[cardIndex]?.back}
+                            {deckCards[deckId].cards[cardIndex]?.back}
                         </Word>
                     </Middle>
                 :
@@ -82,7 +72,7 @@ function Question({ route, navigation }){
                     </Middle>
             }
             {
-              deckCards.cards[cardIndex] 
+              deckCards[deckId].cards[cardIndex] 
                 ?  
                     <ActionButton 
                         style={{ backgroundColor: `#${color}` }}

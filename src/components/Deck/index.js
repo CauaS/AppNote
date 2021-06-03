@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Text } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -11,28 +11,30 @@ import {
 } from '@expo-google-fonts/roboto-mono';
 
 import { DeckContainer, DeckHeader, DeckPlusIcon, DeckBottom, DeckBottomTotalCards, DeckLike } from './styles';
+import Context from '../../context/Context';
 
-function Deck({ deckName, totalCardItems, color, isLiked, navigation }){
+function Deck({ id, deckName, totalCardItems, color, isLiked, navigation }){  
+    const { setFavorite } = useContext(Context);
     let [fonts] = useFonts({ RobotoMono_500Medium });
 
     if (!fonts) {
         return <AppLoading />;
     }
 
-    function toggleLike(){}
-
     return (
         <DeckContainer 
             style={{ backgroundColor: `#${color}`}}
             //bgColor={color}
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('Question',  { title: deckName, color: color, totalItems: totalCardItems })}
+            disabled = { totalCardItems === 0 ?  true: false }
+            onPress={() => navigation.navigate('Question',  { deckId: id, title: deckName, color: color, totalItems: totalCardItems })}
         >
             <DeckHeader>
                 <Text style={{ fontFamily: 'RobotoMono_500Medium', fontSize: 23 }}>
                     {deckName}
                 </Text>
                 <DeckPlusIcon 
+                    onPress={() => navigation.navigate('AddDeckCard',  { title: deckName, deckId: id })}
                     hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
                     <AntDesign name="plus" size={20} color="#fff" />
                 </DeckPlusIcon>
@@ -48,7 +50,7 @@ function Deck({ deckName, totalCardItems, color, isLiked, navigation }){
                     </Text>
                 </DeckBottomTotalCards>
                 <DeckLike 
-                    onPress={toggleLike}
+                    onPress={() =>  setFavorite(id)}
                     hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
                         {
                             isLiked ? <AntDesign name="heart" size={20} color="#fff" /> 
