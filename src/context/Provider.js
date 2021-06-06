@@ -22,13 +22,17 @@ function Provider({ children }){
             setDecks(newArray);
         },[decks]
     );
+
+    const [themeSelected, setThemeSeleted] = useState('light');
+    
     return (
         <Context.Provider 
             value={{ 
                 cardIndex, setCardIndex,
                 decks, setDecks,
                 deckCards, setDeckCards,
-                setFavorite
+                setFavorite,
+                themeSelected, setThemeSeleted
             }}>
             { children }
         </Context.Provider>

@@ -14,7 +14,6 @@ function AddDeck({ navigation }){
             id: decks.length,
             deckName: text,
             totalCardItems: 0,
-            color: '57BBDB',
             isLiked: false 
         };
 
@@ -38,7 +37,10 @@ function AddDeck({ navigation }){
                         underlineColorAndroid="#fff"
                         autoFocus={true}                           
                     />
-                    <BotaoCriar disabled={text.length === 0 ? true : false } onPress={() => AddCard()}>
+                    <BotaoCriar 
+                        disabled={text.length === 0 ? true : false } 
+                        onPress={() => AddCard()}
+                    >
                         <TextModal>Criar</TextModal>
                     </BotaoCriar>
                 </ModalBody>

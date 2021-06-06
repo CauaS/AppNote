@@ -11,7 +11,7 @@ import { RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 function Question({ route, navigation }){
 
     const TextTranslate = useRef(new Animated.Value(0)).current;
-    const { cardIndex, setCardIndex, deckCards } = useContext(Context);
+    const { cardIndex, setCardIndex, deckCards, themeSelected } = useContext(Context);
     const [showed, setShowed] = useState(false);
     const { deckId , color, totalItems } = route.params;
 
@@ -47,7 +47,7 @@ function Question({ route, navigation }){
         outputRange: [100 , 0, 0 ],
         extrapolate: 'clamp'
     });
-    console.log(deckCards)
+
     return (
         <QuestionContainer>
             {
@@ -58,7 +58,7 @@ function Question({ route, navigation }){
                             {deckCards[deckId].cards[cardIndex]?.front}
                         </Word>
                         <Animated.View style={{ opacity: answerInterplate }}> 
-                            <SimpleLineIcons name="arrow-down" size={24} color={`#${color}`} /> 
+                            <SimpleLineIcons name="arrow-down" size={24} color={themeSelected === 'light' ? '#57BBDB' : '#FE9A37'} /> 
                         </Animated.View>
                         <Word style={{ opacity: answerInterplate, transform:[{ translateY: answerInterplateTranslate }] }}>
                             {deckCards[deckId].cards[cardIndex]?.back}
@@ -75,14 +75,12 @@ function Question({ route, navigation }){
               deckCards[deckId].cards[cardIndex] 
                 ?  
                     <ActionButton 
-                        style={{ backgroundColor: `#${color}` }}
                         onPress={() => showed ? goNextCard() : showAnswer()}
                     >
                         <Word> { showed ? 'Próximo' : 'Ver'} </Word>
                     </ActionButton>
                 :
                     <ActionButton 
-                        style={{ backgroundColor: `#${color}` }}
                         onPress={() => goBackHome()}
                     >
                         <Word> Voltar </Word>

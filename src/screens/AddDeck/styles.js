@@ -25,7 +25,7 @@ export const DeckNomeInput = styled.TextInput`
 `;
 
 export const BotaoCriar = styled.TouchableOpacity`
-    background-color: #57BBDB;
+    background-color: ${props => props.theme.color};
     margin-top: 10px;
     padding: 5px;
     align-items: center;

@@ -7,6 +7,7 @@ export const DeckContainer = styled.TouchableOpacity`
     height: 100px;
     margin-bottom: 14px;
     border-radius: 3px;
+    background: ${props => props.theme.color};
 `;
 
 export const DeckHeader = styled.View`

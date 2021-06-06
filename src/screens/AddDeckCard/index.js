@@ -13,7 +13,7 @@ function AddDeckCard({ navigation, route }){
         setCards(existingCards);
     }, []);
 
-    const { setDeckCards, decks, deckCards } = useContext(Context);
+    const { setDeckCards, decks, deckCards, themeSelected } = useContext(Context);
 
     const [textFrente, setTextFrente] = useState('');
     const [textVerso, setTextVerso] = useState('');
@@ -45,22 +45,6 @@ function AddDeckCard({ navigation, route }){
         setTextVerso('');
     }
 
-    function saveDeckCards(){
-        const AllDeckCards = {
-            deckId: deckId,
-            deckName: title,
-            cards: cards
-        }
-        if(deckCards.length > 0) deckCards.splice(deckId, 1);
-        setDeckCards([...deckCards, AllDeckCards]);
-        
-        const existingDeck = decks.find(item => item.id === deckId);
-        existingDeck.totalCardItems = cards.length;
-
-        setTextFrente('');
-        setTextVerso('');
-    }
-
     return(
         <AddDeckCardContainer>
             <View style={{ marginTop: 25, height: 80, justifyContent:'space-between'  }}>
@@ -68,7 +52,7 @@ function AddDeckCard({ navigation, route }){
                 <AddDeckCardInput
                     value={textFrente}
                     onChangeText={text => setTextFrente(text)}
-                    underlineColorAndroid="#fff"
+                    underlineColorAndroid={themeSelected === 'light' ? '#000' : "#fff"}
                     autoFocus={true}
                     returnKeyType="next"
                     onSubmitEditing={() => versoRef.current.focus()}
@@ -79,7 +63,7 @@ function AddDeckCard({ navigation, route }){
                 <AddDeckCardInput  
                     value={textVerso}
                     onChangeText={text => setTextVerso(text)}
-                    underlineColorAndroid="#fff"
+                    underlineColorAndroid={themeSelected === 'light' ? '#000' : "#fff"}
                     ref={versoRef}
                 />
             </View>

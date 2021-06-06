@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import context from '../context/Context';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,6 +12,7 @@ import DeckHeaderLeft from '../components/HeaderLeft';
 import AddDeckCard from '../screens/AddDeckCard'
 
 export default function Routes() {
+    const { themeSelected } = useContext(context);
     const Stack = createStackNavigator(); 
     const config = {
         animation: 'timing',
@@ -50,9 +52,9 @@ export default function Routes() {
                             close: config,
                           },
                         headerStyle: {
-                            backgroundColor: 'black',
+                            backgroundColor: themeSelected === 'light' ? '#fff' : '#000',
                         },
-                        headerTintColor: '#fff',
+                        headerTintColor: themeSelected === 'light' ? '#000' : '#fff',
                         headerRight:() => <DeckHeaderLeft navigation={navigation} route={route}/>
                     })}
                 >
@@ -63,9 +65,9 @@ export default function Routes() {
                     options={({ route, navigation }) => ({
                         title: route.params.title,
                         headerStyle: {
-                            backgroundColor: 'black',
+                            backgroundColor: themeSelected === 'light' ? '#fff' : '#000A',
                         },
-                        headerTintColor: '#fff',
+                        headerTintColor: themeSelected === 'light' ? '#000' : '#fff',
                     })}
                 >
                     {props => <AddDeckCard {...props} />}

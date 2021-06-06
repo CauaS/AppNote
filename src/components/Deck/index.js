@@ -24,8 +24,6 @@ function Deck({ id, deckName, totalCardItems, color, isLiked, navigation }){
 
     return (
         <DeckContainer 
-            style={{ backgroundColor: `#${color}`}}
-            //bgColor={color}
             activeOpacity={0.9}
             disabled = { totalCardItems === 0 ?  true: false }
             onPress={() => navigation.navigate('Question',  { deckId: id, title: deckName, color: color, totalItems: totalCardItems })}
