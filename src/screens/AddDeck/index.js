@@ -8,6 +8,8 @@ function AddDeck({ navigation }){
     const { decks, setDecks } = useContext(Context);
 
     function AddCard(){
+        if(text.length === 0) navigation.goBack();
+
         const newDeck = { 
             id: decks.length,
             deckName: text,
@@ -30,12 +32,13 @@ function AddDeck({ navigation }){
                 </ModalTitle>
                 <ModalBody>
                     <DeckNomeInput 
+                        autoCapitalize='words'
                         value={text}
                         onChangeText={text => setText(text)}
                         underlineColorAndroid="#fff"
                         autoFocus={true}                           
                     />
-                    <BotaoCriar onPress={() => AddCard()}>
+                    <BotaoCriar disabled={text.length === 0 ? true : false } onPress={() => AddCard()}>
                         <TextModal>Criar</TextModal>
                     </BotaoCriar>
                 </ModalBody>

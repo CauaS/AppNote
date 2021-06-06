@@ -19,6 +19,9 @@ function AddDeckCard({ navigation, route }){
     const [textVerso, setTextVerso] = useState('');
     const [cards, setCards] = useState([]);
 
+    const isNewCardValid = () => (textFrente.length === 0 || textVerso.length === 0) ? true : false;
+
+    //TODO: Analisar melhor essa função, ver necessidade da variável cards...
     function handleAddDeckCard(){
         const newCard = { 
             front: textFrente, back: textVerso
@@ -26,13 +29,23 @@ function AddDeckCard({ navigation, route }){
         const allCards = [...cards, newCard];
 
         setCards(allCards);
+
+        const AllDeckCards = {
+            deckId: deckId,
+            deckName: title,
+            cards: allCards
+        }
+        if(deckCards.length > 0) deckCards.splice(deckId, 1);
+        setDeckCards([...deckCards, AllDeckCards]);
+        
+        const existingDeck = decks.find(item => item.id === deckId);
+        existingDeck.totalCardItems = allCards.length;
+
         setTextFrente('');
         setTextVerso('');
     }
 
     function saveDeckCards(){
-        if(!cards) return;
-
         const AllDeckCards = {
             deckId: deckId,
             deckName: title,
@@ -44,7 +57,8 @@ function AddDeckCard({ navigation, route }){
         const existingDeck = decks.find(item => item.id === deckId);
         existingDeck.totalCardItems = cards.length;
 
-        navigation.goBack();
+        setTextFrente('');
+        setTextVerso('');
     }
 
     return(
@@ -70,12 +84,12 @@ function AddDeckCard({ navigation, route }){
                 />
             </View>
             <BotaoAdicionar 
-                disabled={textFrente.length === 0 && textVerso.length === 0 }
+                disabled={isNewCardValid()}
                 onPress={() => handleAddDeckCard()}
             >
                 <TextDecription>Adicionar </TextDecription>
             </BotaoAdicionar>
-            <BotaoAdicionar onPress={() => saveDeckCards()}>
+            <BotaoAdicionar onPress={() => navigation.goBack()}>
                 <TextDecription>Voltar </TextDecription>
             </BotaoAdicionar>
         </AddDeckCardContainer>

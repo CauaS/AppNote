@@ -13,7 +13,8 @@ import {
 import { DeckContainer, DeckHeader, DeckPlusIcon, DeckBottom, DeckBottomTotalCards, DeckLike } from './styles';
 import Context from '../../context/Context';
 
-function Deck({ id, deckName, totalCardItems, color, isLiked, navigation }){  
+function Deck({ id, deckName, totalCardItems, color, isLiked, navigation }){
+    
     const { setFavorite } = useContext(Context);
     let [fonts] = useFonts({ RobotoMono_500Medium });
 

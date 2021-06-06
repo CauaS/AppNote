@@ -9,12 +9,12 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { RobotoMono_500Medium } from '@expo-google-fonts/roboto-mono';
 
 function Question({ route, navigation }){
-   
+
     const TextTranslate = useRef(new Animated.Value(0)).current;
     const { cardIndex, setCardIndex, deckCards } = useContext(Context);
     const [showed, setShowed] = useState(false);
     const { deckId , color, totalItems } = route.params;
-    
+
     function showAnswer(){
         Animated.timing(TextTranslate, {
             toValue: -100,
@@ -47,7 +47,7 @@ function Question({ route, navigation }){
         outputRange: [100 , 0, 0 ],
         extrapolate: 'clamp'
     });
-    
+    console.log(deckCards)
     return (
         <QuestionContainer>
             {
